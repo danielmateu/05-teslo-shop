@@ -12,7 +12,7 @@ export const Navbar = () => {
                 <NextLink href="/" passHref>
                     <Link display='flex' alignItems='center'>
                         <Typography variant='h6'>Mundo Camper</Typography>
-                        <Typography sx={{ ml: .5 }}>Shop</Typography>
+                        <Typography sx={{ ml: .5 }}>| Shop</Typography>
                     </Link>
                 </NextLink>
 
@@ -20,7 +20,7 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box sx= {{display: {xs: 'none', sm: 'block'}}}>
+                <Box sx= {{display: {xs: 'none', md: 'block'}}}>
 
                     <NextLink href='category/men' passHref>
                         <Link>
