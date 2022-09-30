@@ -2,9 +2,7 @@ import { Grid, Typography, Link, CardActionArea, CardMedia, Box, Button } from '
 import { initialData } from '../../database/products';
 import NextLink from 'next/link';
 import { ItemCounter } from '../ui';
-
-
-
+import { FC } from 'react';
 
 
 const productsInCart = [
@@ -13,8 +11,11 @@ const productsInCart = [
     initialData.products[2],
 ]
 
-export const CartList = () => {
+interface Props {
+    editable?: boolean;
+}
 
+export const CartList: FC<Props> = ({editable = false}) => {
 
     return (
         <>
@@ -47,7 +48,12 @@ export const CartList = () => {
                                 <Typography variant='body1'>Talla: <strong>M</strong></Typography>
 
                                 {/* DEBE SER CONDICIONAL*/}
-                                <ItemCounter />
+
+                                {
+                                    editable 
+                                    ? <ItemCounter/> 
+                                    : <Typography variant='h5'>3 items</Typography>
+                                }
                             </Box>
                         </Grid>
 
@@ -60,9 +66,14 @@ export const CartList = () => {
                             <Typography>{`$${product.price}`}</Typography>
 
                             {/* EDITABLE */}
-                            <Button variant='text' color='secondary'>
+
+                            {
+                                editable && (
+                                <Button variant='text' color='secondary'>
                                 Eliminar
-                            </Button>
+                                </Button>) 
+                            
+                            }
 
                         </Grid>
                     </Grid>
