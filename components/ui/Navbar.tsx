@@ -11,7 +11,7 @@ export const Navbar = () => {
 
                 <NextLink href="/" passHref>
                     <Link display='flex' alignItems='center'>
-                        <Typography variant='h6'>Teslo</Typography>
+                        <Typography variant='h6'>Mundo Camper</Typography>
                         <Typography sx={{ ml: .5 }}>Shop</Typography>
                     </Link>
                 </NextLink>
@@ -32,7 +32,7 @@ export const Navbar = () => {
                             <Button>Mujeres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/women' passHref>
+                    <NextLink href='category/children' passHref>
                         <Link>
                             <Button>Children</Button>
                         </Link>
