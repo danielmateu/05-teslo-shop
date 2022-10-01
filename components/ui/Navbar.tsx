@@ -1,4 +1,5 @@
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { AppBar, Toolbar, Typography, Link, Box, Button, IconButton, Badge } from "@mui/material"
 
 import NextLink from 'next/link';
@@ -20,21 +21,41 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box sx= {{display: {xs: 'none', md: 'block'}}}>
+                <Box sx= {{display: {xs: 'none', lg: 'block'}}}>
 
-                    <NextLink href='category/men' passHref>
+                    <NextLink href='category/agua' passHref>
                         <Link>
-                            <Button>Hombres</Button>
+                            <Button>Agua</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/women' passHref>
+                    <NextLink href='category/electricidad' passHref>
                         <Link>
-                            <Button>Mujeres</Button>
+                            <Button>Electricidad</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/children' passHref>
+                    <NextLink href='category/gas' passHref>
                         <Link>
-                            <Button>Children</Button>
+                            <Button>Gas</Button>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='category/interiores' passHref>
+                        <Link>
+                            <Button>Interior</Button>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='category/esteriores' passHref>
+                        <Link>
+                            <Button>Exterior</Button>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='category/muebles-custom' passHref>
+                        <Link>
+                            <Button>Muebles a medida</Button>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='category/recambios' passHref>
+                        <Link>
+                            <Button>Recambios</Button>
                         </Link>
                     </NextLink>
                 
@@ -56,7 +77,9 @@ export const Navbar = () => {
                     </Link>
                 </NextLink>
 
-                <Button>Menú</Button>
+                <Button>
+                    <MenuOutlinedIcon/>
+                </Button>
 
                 {/* TODO FLEX */}
 
