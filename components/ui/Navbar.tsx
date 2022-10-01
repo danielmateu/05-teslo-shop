@@ -25,37 +25,42 @@ export const Navbar = () => {
 
                     <NextLink href='category/agua' passHref>
                         <Link>
-                            <Button>Agua</Button>
+                            <Button>agua</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='category/electricidad' passHref>
                         <Link>
-                            <Button>Electricidad</Button>
+                            <Button>electricidad</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='category/gas' passHref>
                         <Link>
-                            <Button>Gas</Button>
+                            <Button>gas</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='category/interiores' passHref>
                         <Link>
-                            <Button>Interior</Button>
+                            <Button>interiores</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='category/esteriores' passHref>
                         <Link>
-                            <Button>Exterior</Button>
+                            <Button>exteriores</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='category/muebles-custom' passHref>
                         <Link>
-                            <Button>Muebles a medida</Button>
+                            <Button>muebles a medida</Button>
                         </Link>
                     </NextLink>
                     <NextLink href='category/recambios' passHref>
                         <Link>
-                            <Button>Recambios</Button>
+                            <Button>recambios</Button>
+                        </Link>
+                    </NextLink>
+                    <NextLink href='category/productos-quimicos' passHref>
+                        <Link>
+                            <Button>productos químicos</Button>
                         </Link>
                     </NextLink>
                 
