@@ -5,9 +5,9 @@ import NextLink from 'next/link';
 
 const AddressPage = () => {
   return (
-    <ShopLayout title={"Formulario de dirección"} pageDescription={"COnfirmar dirección de destino"}>
-      <Typography variant="h1" component='h1' sx={{ mb: 4 }}>Dirección</Typography>
-      <Grid container spacing={2}>
+    <ShopLayout title={"Formulario de dirección"} pageDescription={"Confirmar dirección de destino"}>
+      <Typography variant="h1" component='h1' padding = {'1em 1em'}>Dirección</Typography>
+      <Grid container spacing={2} >
         <Grid item xs={12} sm={6}>
           <TextField label='Nombre' variant='filled' fullWidth />
         </Grid>

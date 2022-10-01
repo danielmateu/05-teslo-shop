@@ -1,16 +1,16 @@
 
+import NextLink from 'next/link';
 
 import { AuthLayout } from '../../components/layouts'
 
 import { Button, Grid, Link, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import NextLink from 'next/link';
 
 
 const RegisterPage = () => {
     return (
         <AuthLayout title="Página de registro">
-            <Box sx={{ width: 350, padding: '15em 1em' }} >
+            <Box sx={{ width: 350, padding: '12em 1em' }} >
 
                 <Grid container spacing={2}  >
                     <Grid item>
@@ -18,7 +18,7 @@ const RegisterPage = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField label='Nombre' variant='filled' fullWidth />
+                        <TextField label='Nombre completo' variant='filled' fullWidth />
                     </Grid>
                     
                     <Grid item xs={12}>

@@ -8,7 +8,7 @@ import NextLink from 'next/link';
 const LoginPage = () => {
   return (
     <AuthLayout title="Ingresar">
-      <Box sx={{ width: 350, padding: '15em 1em' }} >
+      <Box sx={{ width: 350, padding: '12em 1em' }} >
 
         <Grid container spacing={2}  >
           <Grid item>
