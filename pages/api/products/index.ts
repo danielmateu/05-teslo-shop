@@ -4,9 +4,6 @@ import { db, SHOP_CONSTANTS,  } from '../../../database';
 import { IProduct } from '../../../interfaces';
 import { Product } from '../../../models';
 
-
-
-
 type Data = 
 | {message: string}
 | IProduct[]
@@ -28,7 +25,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 
 const getProducts = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const {gender = 'all'} = req.query;
+    const {gender = 'all', slug } = req.query;
 
     let condition = {};
 
