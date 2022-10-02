@@ -23,19 +23,19 @@ export const Navbar = () => {
 
                 <Box sx= {{display: {xs: 'none', md: 'block'}}}>
 
-                    <NextLink href='category/hombres' passHref>
+                    <NextLink href='/category/men' passHref>
                         <Link>
                             <Button>hombres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/mujeres' passHref>
+                    <NextLink href='/category/women' passHref>
                         <Link>
                             <Button>mujeres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/niños' passHref>
+                    <NextLink href='/category/kids' passHref>
                         <Link>
-                            <Button>niños</Button>
+                            <Button>niñ@s</Button>
                         </Link>
                     </NextLink>
                     {/* <NextLink href='category/interiores' passHref>
