@@ -21,24 +21,24 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box sx= {{display: {xs: 'none', lg: 'block'}}}>
+                <Box sx= {{display: {xs: 'none', md: 'block'}}}>
 
-                    <NextLink href='category/agua' passHref>
+                    <NextLink href='category/hombres' passHref>
                         <Link>
-                            <Button>agua</Button>
+                            <Button>hombres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/electricidad' passHref>
+                    <NextLink href='category/mujeres' passHref>
                         <Link>
-                            <Button>electricidad</Button>
+                            <Button>mujeres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/gas' passHref>
+                    <NextLink href='category/niños' passHref>
                         <Link>
-                            <Button>gas</Button>
+                            <Button>niños</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='category/interiores' passHref>
+                    {/* <NextLink href='category/interiores' passHref>
                         <Link>
                             <Button>interiores</Button>
                         </Link>
@@ -62,7 +62,7 @@ export const Navbar = () => {
                         <Link>
                             <Button>productos químicos</Button>
                         </Link>
-                    </NextLink>
+                    </NextLink> */}
                 
                 </Box>
 

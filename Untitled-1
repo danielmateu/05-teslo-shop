@@ -1,0 +1,10 @@
+service
+- teslodb
+
+nombre del contenedor
+- teslo-database
+
+volumen
+- mongo
+
+.env
