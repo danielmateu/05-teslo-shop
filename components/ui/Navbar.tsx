@@ -3,9 +3,13 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { AppBar, Toolbar, Typography, Link, Box, Button, IconButton, Badge } from "@mui/material"
 
 import NextLink from 'next/link';
+import { useRouter } from "next/router";
 
 
 export const Navbar = () => {
+
+    const {asPath} = useRouter();
+
     return (
         <AppBar>
             <Toolbar>
@@ -21,21 +25,21 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box sx= {{display: {xs: 'none', md: 'block'}}}>
+                <Box sx={{ display: { xs: 'none', md: 'block' } }}>
 
-                    <NextLink href='/category/men' passHref>
-                        <Link>
-                            <Button>hombres</Button>
+                    <NextLink href='/category/men' passHref >
+                        <Link >
+                            <Button color={asPath === '/category/men' ? 'secondary' : 'info'}>hombres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='/category/women' passHref>
+                    <NextLink href='/category/women' passHref >
                         <Link>
-                            <Button>mujeres</Button>
+                            <Button color={asPath === '/category/women' ? 'secondary' : 'info'}>mujeres</Button>
                         </Link>
                     </NextLink>
-                    <NextLink href='/category/kids' passHref>
+                    <NextLink href='/category/kids' passHref >
                         <Link>
-                            <Button>niñ@s</Button>
+                            <Button color={asPath === '/category/kids' ? 'secondary' : 'info'}>niñ@s</Button>
                         </Link>
                     </NextLink>
                     {/* <NextLink href='category/interiores' passHref>
@@ -63,7 +67,7 @@ export const Navbar = () => {
                             <Button>productos químicos</Button>
                         </Link>
                     </NextLink> */}
-                
+
                 </Box>
 
                 <Box flex={1} />
@@ -75,15 +79,15 @@ export const Navbar = () => {
                 <NextLink href='/cart' passHref>
                     <Link>
                         <IconButton>
-                            <Badge badgeContent = {2} color= 'secondary' >
-                                <ShoppingCartOutlined/>
+                            <Badge badgeContent={2} color='secondary' >
+                                <ShoppingCartOutlined />
                             </Badge>
                         </IconButton>
                     </Link>
                 </NextLink>
 
                 <Button>
-                    <MenuOutlinedIcon/>
+                    <MenuOutlinedIcon />
                 </Button>
 
                 {/* TODO FLEX */}

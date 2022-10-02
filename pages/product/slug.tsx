@@ -39,7 +39,7 @@ const ProductPage = () => {
 
             {/* Agregar al carrito */}
 
-            <Button color='secondary' className='circular-btn'>Agregar al carrito</Button>
+            <Button color='secondary' >Agregar al carrito</Button>
 
             {/* <Chip label='Sin disponibilidad' color='error' variant='outlined'/> */}
 

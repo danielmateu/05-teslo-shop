@@ -54,7 +54,7 @@ export const lightTheme = createTheme({
 
     MuiButton: {
       defaultProps: {
-        variant: 'contained',
+        variant: 'outlined',
         size: 'small',
         disableElevation: true,
         color: 'info',
@@ -62,13 +62,14 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           // backgroundColor: 'white',
-          // color: 'black',
+          color: 'black',
           textTransform: 'none',
           boxShadow: 'none',
           borderRadius: 10,
           ":hover": {
-            backgroundColor: 'rgba(0,0,0,0.05)',
-            transition: 'all 0.3s ease-in-out'
+            // backgroundColor: '#ggg',
+            transition: 'all 0.3s ease-in-out',
+            color: '#6f9ac2'
           }
         }
       }
