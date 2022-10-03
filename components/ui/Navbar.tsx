@@ -1,21 +1,27 @@
+import { useContext } from "react";
+import NextLink from 'next/link';
+
+import { useRouter } from "next/router";
+import { UiContext } from "../../context";
+
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+// import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { AppBar, Toolbar, Typography, Link, Box, Button, IconButton, Badge } from "@mui/material"
 
-import NextLink from 'next/link';
-import { useRouter } from "next/router";
 
 
 export const Navbar = () => {
 
     const {asPath} = useRouter();
 
+    const {toggleSideMenu} = useContext(UiContext)
+
     return (
         <AppBar>
             <Toolbar>
 
                 <NextLink href="/" passHref>
-                    <Link display='flex' alignItems='center'>
+                    <Link display='flex' alignItems='center' justifyContent='center'>
                         <Typography variant='h6'>Mundo Camper</Typography>
                         <Typography sx={{ ml: .5 }}>| Shop</Typography>
                     </Link>
@@ -86,8 +92,9 @@ export const Navbar = () => {
                     </Link>
                 </NextLink>
 
-                <Button>
-                    <MenuOutlinedIcon />
+                <Button onClick={toggleSideMenu}>
+                    Menú
+                    {/* <MenuOutlinedIcon /> */}
                 </Button>
 
                 {/* TODO FLEX */}
