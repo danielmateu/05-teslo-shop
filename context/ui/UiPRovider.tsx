@@ -1,5 +1,5 @@
 import React, { FC, useReducer, PropsWithChildren } from 'react';
-import { UiContext, uiReducer } from './';
+import { UiContext, uiReducer } from '.';
 
 
 export interface UiState {

@@ -2,5 +2,5 @@
 
 
 export * from './UiContext';
-export * from './UiProvider';
+export * from './UiPRovider';
 export * from './uiReducer';

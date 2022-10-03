@@ -1,6 +1,6 @@
 
 
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -22,7 +22,7 @@ interface Props {
   slug: string;
 }
 
-const ProductPage:NextPage<Props> = ({product}) => {
+const ProductPage: NextPage<Props> = ({ product }) => {
 
   // const router = useRouter();
   // const {products: product, isLoading} = useProducts(`/products/${router.query.slug}`);
@@ -83,12 +83,66 @@ const ProductPage:NextPage<Props> = ({product}) => {
 // - Only if you need to pre-render a page whose data must be fetched at request time
 
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-  
-  const {slug = ''} = params as {slug: string}
+//NO USAR SSR
+
+// export const getServerSideProps: GetServerSideProps = async ({params}) => {
+
+//   const {slug = ''} = params as {slug: string}
+//   const product = await dbProducts.getProductBySlug(slug);
+
+//   if(!product){
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false
+//       }
+//     }
+//   }
+
+
+//   return {
+//     props: {
+//       product
+//     }
+//   }
+// }
+
+//getStaticPaths...
+//blocking
+
+// You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
+
+
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+
+  const productSlugs = await dbProducts.getAllProductsSlugs();
+
+  return {
+    paths: productSlugs.map(({ slug }) => ({
+      params: {
+        slug
+      }
+    })),
+    fallback: "blocking"
+  }
+}
+
+
+//getStaticProps
+
+// You should use getStaticProps when:
+//- The data required to render the page is available at build time ahead of a user’s request.
+//- The data comes from a headless CMS.
+//- The data can be publicly cached (not user-specific).
+//- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+
+
+  const { slug = '' } = params as { slug: string };
   const product = await dbProducts.getProductBySlug(slug);
-  
-  if(!product){
+
+  if (!product) {
     return {
       redirect: {
         destination: '/',
@@ -97,12 +151,14 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
     }
   }
 
-
   return {
     props: {
       product
-    }
+    },
+    revalidate: 60* 60 * 24
   }
 }
+
+//Revalidar cada 24horas
 
 export default ProductPage
