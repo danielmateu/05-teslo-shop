@@ -49,7 +49,7 @@ const SummaryPage = () => {
                             <OrderSummary />
 
                             <Box sx={{ mt: 3 }}>
-                                <Button color="secondary" className="circular-btn" fullWidth>Checkout</Button>
+                                <Button color="secondary" fullWidth>Checkout</Button>
 
                             </Box>
 

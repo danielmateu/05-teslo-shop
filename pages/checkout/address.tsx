@@ -50,7 +50,7 @@ const AddressPage = () => {
       <Box sx={{ mt: 4 }} display='flex' justifyContent='center'>
         <NextLink href="/checkout/summary">
           <Link>
-            <Button color='secondary' className='circular-btn' size='large'>Revisar pedido</Button>
+            <Button color='secondary'>Revisar pedido</Button>
           </Link>
         </NextLink>
       </Box>

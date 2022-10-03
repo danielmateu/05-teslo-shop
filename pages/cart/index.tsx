@@ -27,7 +27,7 @@ const CartPage = () => {
                                 <NextLink href='/checkout/address'>
                                     <Link>
 
-                                        <Button color="secondary" className="circular-btn" fullWidth>Checkout</Button>
+                                        <Button color="secondary"  fullWidth>Checkout</Button>
                                     </Link>
                                 </NextLink>
 
