@@ -43,7 +43,7 @@ export const ShopLayout: FC<Props> = ({ children, title, pageDescription, imageF
             <main style={{
                 margin: '80px auto',
                 maxWidth: '1440px',
-                padding: '0 30px',
+                padding: '0 1em',
             }}>
                 {children}
             </main>
