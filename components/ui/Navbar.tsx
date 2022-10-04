@@ -38,8 +38,8 @@ export const Navbar = () => {
 
                 <NextLink href="/" passHref>
                     <Link display='flex' alignItems='center' justifyContent='center'>
-                        <Typography variant='h6' className="fadeIn">Mundo Camper</Typography>
-                        <Typography sx={{ ml: .5 }} className="fadeIn">| Shop</Typography>
+                        <Typography  variant='h6' className="fadeIn">Mundo Camper|</Typography>
+                        <Typography sx={{ p: .4 }} className="fadeIn">Shop</Typography>
                     </Link>
                 </NextLink>
 
