@@ -8,19 +8,16 @@ import { useRouter } from "next/router"
 export const SideMenu = () => {
 
     const router = useRouter()
-
     const {isMenuOpen, toggleSideMenu} = useContext(UiContext);
-
     const [searchTerm, setSearchTerm] = useState('');
 
     const onSearchTerm = () => {
         if(searchTerm.trim().length === 0) return;
-
-        navigateTo(`/search/${searchTerm}`)
+        push(`/search/${searchTerm}`)
     }
 
     const navigateTo = (url: string) => {
-        toggleSideMenu();
+        // toggleSideMenu();
         router.push(url);
     }
 
@@ -37,6 +34,7 @@ export const SideMenu = () => {
 
                     <ListItem>
                         <Input
+                            autoFocus
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onKeyUp = {(e) => e.key === 'Enter' && onSearchTerm() }
@@ -140,4 +138,8 @@ export const SideMenu = () => {
             </Box>
         </Drawer>
     )
+}
+
+function push(arg0: string) {
+    throw new Error("Function not implemented.")
 }

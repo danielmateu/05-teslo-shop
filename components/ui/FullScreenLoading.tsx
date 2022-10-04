@@ -4,6 +4,7 @@ import React from 'react'
 export const FullScreenLoading = () => {
     return (
         <Box
+            className="fadeIn"
             display='flex'
             flexDirection='column'
             justifyContent='center'
@@ -12,6 +13,7 @@ export const FullScreenLoading = () => {
 
         >
             <Typography 
+            className="fadeIn"
             sx = {{ mb:2}} 
             variant="h2" 
             fontWeight={200} 
