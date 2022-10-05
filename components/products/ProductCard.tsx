@@ -66,7 +66,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                 </NextLink>
 
                 <Box sx={{ p: 2, display: isImageLoaded ? 'block' : 'none' }} className='fadeIn'>
-                    <Typography fontWeight={700}>{product.description}</Typography>
+                    <Typography fontWeight={600}>{`${product.title}`}</Typography>
                     <Typography fontWeight={600}>{`€${product.price}`}</Typography>
                     {/* <Typography fontWeight={600}>Cantidad: {product.inStock}</Typography> */}
                 </Box>
