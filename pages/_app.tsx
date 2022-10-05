@@ -7,8 +7,19 @@ import useSWR, { SWRConfig } from 'swr'
 import { ThemeProvider } from '@mui/system'
 import { lightTheme } from '../themes'
 import { CartProvider, UiProvider } from '../context'
+import { useEffect, useState } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  /* A hack to prevent the page from rendering twice. */
+  const [showChild, setShowChild] = useState(false);
+  useEffect(() => {
+      setShowChild(true);
+  }, []);
+  if (!showChild) {
+      return <></>;
+  }
+
   return (
 
     <SWRConfig
