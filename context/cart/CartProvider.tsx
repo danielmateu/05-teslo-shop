@@ -2,6 +2,8 @@ import React, { FC, useReducer, PropsWithChildren } from 'react';
 import { ICartProduct } from '../../interfaces';
 import { CartContext, cartReducer } from './';
 
+import Cookie from 'js-cookie';
+
 
 
 export interface CartState {
