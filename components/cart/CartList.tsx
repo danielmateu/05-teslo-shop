@@ -1,17 +1,11 @@
-import { Grid, Typography, Link, CardActionArea, CardMedia, Box, Button } from '@mui/material';
-// import { initialData } from '../../database/products';
-import NextLink from 'next/link';
-import { ItemCounter } from '../ui';
 import { FC, useContext } from 'react';
+import NextLink from 'next/link';
+
+import { Grid, Typography, Link, CardActionArea, CardMedia, Box, Button } from '@mui/material';
+
+import { ItemCounter } from '../ui';
 import { CartContext } from '../../context/cart/CartContext';
 import { ICartProduct } from '../../interfaces';
-
-
-// const productsInCart = [
-//     initialData.products[0],
-//     initialData.products[1],
-//     initialData.products[2],
-// ]
 
 interface Props {
     editable?: boolean;
