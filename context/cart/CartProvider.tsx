@@ -1,8 +1,9 @@
-import React, { FC, useReducer, PropsWithChildren, useEffect } from 'react';
+import React, { FC, useReducer, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import Cookie from 'js-cookie';
 
 import { ICartProduct } from '../../interfaces';
 import { CartContext, cartReducer } from './';
+import Cookies from 'js-cookie';
 
 
 
@@ -12,8 +13,8 @@ export interface CartState {
     subTotal: number;
     tax: number;
     total: number;
+    isReloading: boolean;
 
-    
 }
 
 
@@ -24,6 +25,7 @@ export const CART_INITIAL_STATE: CartState = {
     subTotal: 0,
     tax: 0,
     total: 0,
+    isReloading: false
 
 
 };
@@ -33,15 +35,34 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
+    
+    const [isMounted, setIsMounted] = useState(false);
+
     useEffect(() => {
-        try {
-            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): []
-        
-            dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
-        } catch (error) {
-            dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch:[] }); 
+        if (isMounted) Cookies.set("cart", JSON.stringify(state.cart));
+    }, [state.cart, isMounted]);
+
+    useEffect(() => {
+        if (!isMounted) {
+            const cart = JSON.parse(Cookies.get("cart") ?? "[]");
+            dispatch({
+                type: "[Cart] - LoadCart from cookies | storage",
+                payload: cart,
+            });
+            setIsMounted(true);
         }
-    }, []);
+    }, [isMounted]);
+
+
+    // useEffect(() => {
+    //     try {
+    //         const cookieProducts = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')!) : []
+
+    //         dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
+    //     } catch (error) {
+    //         dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch: [] });
+    //     }
+    // }, []);
 
     useEffect(() => {
         Cookie.set('cart', JSON.stringify(state.cart))
