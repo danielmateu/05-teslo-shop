@@ -42,27 +42,27 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
         if (isMounted) Cookies.set("cart", JSON.stringify(state.cart));
     }, [state.cart, isMounted]);
 
-    useEffect(() => {
-        if (!isMounted) {
-            const cart = JSON.parse(Cookies.get("cart") ?? "[]");
-            dispatch({
-                type: "[Cart] - LoadCart from cookies | storage",
-                payload: cart,
-            });
-            setIsMounted(true);
-        }
-    }, [isMounted]);
-
-
     // useEffect(() => {
-    //     try {
-    //         const cookieProducts = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')!) : []
-
-    //         dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
-    //     } catch (error) {
-    //         dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch: [] });
+    //     if (!isMounted) {
+    //         const cart = JSON.parse(Cookies.get("cart") ?? "[]");
+    //         dispatch({
+    //             type: "[Cart] - LoadCart from cookies | storage",
+    //             payload: cart,
+    //         });
+    //         setIsMounted(true);
     //     }
-    // }, []);
+    // }, [isMounted]);
+
+
+    useEffect(() => {
+        try {
+            const cookieProducts = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')!) : []
+
+            dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
+        } catch (error) {
+            dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch: [] });
+        }
+    }, []);
 
     useEffect(() => {
         Cookie.set('cart', JSON.stringify(state.cart))

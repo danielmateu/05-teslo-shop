@@ -5,8 +5,11 @@ import NextLink from 'next/link';
 
 
 const CartPage = () => {
+
+
+
     return (
-        <ShopLayout title={"Tu carrito 3"} pageDescription={"Aquí puedes revisar tu carrito"}>
+        <ShopLayout title={`Tu carrito`} pageDescription={"Aquí puedes revisar tu carrito"}>
             <Typography variant="h1" component='h1'>Carrito</Typography>
 
             <Grid container sx={{ justifyContent: 'center', }}>
