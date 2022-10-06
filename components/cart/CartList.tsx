@@ -21,7 +21,7 @@ interface Props {
 
 export const CartList: FC<Props> = ({ editable = false }) => {
 
-    const { cart, updateCartQuantity } = useContext(CartContext);
+    const { cart, updateCartQuantity, removeCartProduct } = useContext(CartContext);
 
     const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {
         product.quantity = newQuantityValue;
@@ -41,7 +41,7 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                     >
                         <Grid item xs={3}>
                             {/* TODO: Llevar a la pagina del producto */}
-                            <NextLink href= {`/product/${product.slug}`} passHref>
+                            <NextLink href={`/product/${product.slug}`} passHref>
                                 <Link>
                                     <CardActionArea>
                                         <CardMedia
@@ -92,7 +92,10 @@ export const CartList: FC<Props> = ({ editable = false }) => {
 
                             {
                                 editable && (
-                                    <Button variant='text' color='secondary'>
+                                    <Button
+                                        onClick={() => removeCartProduct(product)}
+                                        variant='text'
+                                        color='secondary'>
                                         Eliminar
                                     </Button>)
 

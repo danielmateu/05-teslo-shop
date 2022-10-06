@@ -27,7 +27,7 @@ const CartPage = () => {
                             {/* ORDER SUMARY */}
                             <OrderSummary />
                             <Box sx={{ mt: 3 }}>
-                                <NextLink href='/checkout/address'>
+                                <NextLink href='/checkout/summary'>
                                     <Link>
 
                                         <Button color="secondary"  fullWidth>Checkout</Button>

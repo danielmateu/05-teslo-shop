@@ -10,7 +10,7 @@ const SummaryPage = () => {
             <Typography variant="h1" component='h1'>Resumen del pedido</Typography>
 
             <Grid container sx={{ justifyContent: 'center', }}>
-                <Grid item xs={12} md={7} >
+                <Grid item xs={12} md={7} sx={{mt:2}} >
                     {/* CartList trabajado con la localstorage y/o cookies*/}
                     <CartList  />
 

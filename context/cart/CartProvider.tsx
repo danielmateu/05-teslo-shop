@@ -72,11 +72,12 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const addProductToCart = (product: ICartProduct) => {
         
+        /* Checking if the product is already in the cart. If it is not, it will add it to the cart. */
         const productInCart = state.cart.some(p => p._id === product._id);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] });
 
+        /* Checking if the product is already in the cart but with a different size. */
         const productInCartButDifferentSize = state.cart.some(p => p._id === product._id && p.size === product.size);
-
         if (!productInCartButDifferentSize) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] });
 
         // ACUMULAR
@@ -96,6 +97,13 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     const updateCartQuantity = (product : ICartProduct) => {
         dispatch({ type: '[Cart] - Change cart quantity', payload: product})
     }
+    
+    const removeCartProduct = (product : ICartProduct) => {
+        
+    
+        dispatch({ type: '[Cart] - Remove product in cart', payload: product})
+        
+    }
 
     return (
         <CartContext.Provider value={{
@@ -104,6 +112,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             //Methods
             addProductToCart,
             updateCartQuantity,
+            removeCartProduct,
         }}>
             {children}
         </CartContext.Provider>
