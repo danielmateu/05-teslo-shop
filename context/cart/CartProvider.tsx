@@ -13,8 +13,7 @@ export interface CartState {
     subTotal: number;
     tax: number;
     total: number;
-    isReloading: boolean;
-
+    
 }
 
 
@@ -25,7 +24,7 @@ export const CART_INITIAL_STATE: CartState = {
     subTotal: 0,
     tax: 0,
     total: 0,
-    isReloading: false
+    
 
 
 };
@@ -60,7 +59,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
-            dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch: [] });
+            // dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch: [] });
         }
     }, []);
 
@@ -74,7 +73,6 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
         const subTotal = state.cart.reduce( (prev, current) =>(current.quantity * current.price) + prev, 0);
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0 );
 
-
         const orderSummary = {
             numberOfItems,
             subTotal,
@@ -83,7 +81,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
         }
 
 
-        console.log({orderSummary});
+        dispatch({type: '[Cart] - Update order summary', payload: orderSummary});
 
     }, [state.cart])
 
