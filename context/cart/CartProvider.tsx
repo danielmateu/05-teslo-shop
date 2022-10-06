@@ -71,14 +71,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
 
     const addProductToCart = (product: ICartProduct) => {
-        //! Nivel 1 
-        // console.log(product);
-        // dispatch({type: '[Cart] - Add product', payload: product})
-        //! Nivel 2
-        // const productsInCart = state.cart.filter(p=>p._id !== product._id && p.size !== product.size);
-        // dispatch({type: '[Cart] - Add product', payload: [...productsInCart,product]})
-
-        //! Nivel Final
+        
         const productInCart = state.cart.some(p => p._id === product._id);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] });
 
@@ -98,8 +91,10 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
         })
 
         dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
+    }
 
-
+    const updateCartQuantity = (product : ICartProduct) => {
+        dispatch({ type: '[Cart] - Change cart quantity', payload: product})
     }
 
     return (
@@ -108,7 +103,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
             //Methods
             addProductToCart,
-
+            updateCartQuantity,
         }}>
             {children}
         </CartContext.Provider>
