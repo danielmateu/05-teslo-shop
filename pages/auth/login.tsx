@@ -41,6 +41,9 @@ const LoginPage = () => {
         setShowError(false);
       },3000)
     }
+
+    //TODO: Navegar a la pantalla en la que el usuario estaba
+
   }
 
   return (
@@ -79,7 +82,7 @@ const LoginPage = () => {
 
             <Grid item xs={12}>
               <TextField
-                label='Contraseña'
+                label='Contraseña (entre comillas " ") '
                 type='password'
                 variant='filled'
                 fullWidth
