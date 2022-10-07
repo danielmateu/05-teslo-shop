@@ -6,6 +6,12 @@ import { AuthLayout } from '../../components/layouts'
 import { Button, Grid, Link, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
+type FormData = {
+    name:       string;
+    email:      string;
+    password:   string;
+}
+
 
 const RegisterPage = () => {
     return (
