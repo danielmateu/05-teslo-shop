@@ -1,10 +1,24 @@
+
+
+
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { db } from '../../../database'
-import { User } from '../../../models'
 import bcrypt from 'bcryptjs';
 
-type Data = { message: string } 
-| {token: string, user:{email: string, role: string, name: string}};
+import { db } from '../../../database'
+import { User } from '../../../models'
+import { jwt } from '../../../utils';
+
+type Data = 
+|{ message: string } 
+| {
+    token: string, 
+    user:{  
+        email: string,   
+        role: string,     
+        name: string,
+        
+        }
+};
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -14,7 +28,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             return loginUser(req, res)
 
         default:
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'BAD REQUEST'
             })
     }
@@ -23,7 +37,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 
 const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    const { email = '', password = '' } = req.body
+    const { email = '', password = '' } = req.body;
+
     await db.connect();
     const user = await User.findOne({ email });
     await db.disconnect();
@@ -36,17 +51,20 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         return res.status(400).json({ message: 'Correo o contraseña no válidaos - PASSWORD' });
     }
 
-    const { role, name } = user
+    /* Destructuring the user object. */
+    const { role, name, _id } = user;
+
+    /* Creating a token with the user's id and email. */
+    const token = jwt.signToken( _id, email);
 
     return res.status(200).json(
         {
-            token: '',
+            token, //jwt
             user: {
                 email,
                 role,
-                name
+                name,  
             }
-        }
-    )
-
+        })
 }
+
