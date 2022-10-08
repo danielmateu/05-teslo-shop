@@ -2,13 +2,15 @@ import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 
 import { Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import { Box } from '@mui/system'
 import { AuthLayout } from '../../components/layouts'
 import { validations } from '../../utils';
 import { tesloApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
+import { AuthContext } from '../../context';
+import { useRouter } from 'next/router';
 
 
 type FormData = {
@@ -19,30 +21,32 @@ type FormData = {
 
 const LoginPage = () => {
 
+  const router = useRouter()
+
+  const {loginUser} = useContext(AuthContext)
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [showError, setShowError] = useState(false)
 
 
   const onLoginUser = async({email, password}: FormData) => {
 
-    setShowError(false)
+    setShowError(false);
 
-    try {
-      
-      const { data } = await tesloApi.post('/user/login', {email, password});
-      const {token, user} = data;
-      console.log({token, user})
+    const isValidLogin = await loginUser(email,password);
 
-
-    } catch (error) {
-      console.log('Error en las credenciales');
+    if(!isValidLogin){
       setShowError(true);
+      
       setTimeout(() => {
         setShowError(false);
+
       },3000)
+      return;
     }
 
     //TODO: Navegar a la pantalla en la que el usuario estaba
+    router.replace('/');
 
   }
 

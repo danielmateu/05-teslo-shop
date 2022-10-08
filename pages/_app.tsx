@@ -6,7 +6,7 @@ import useSWR, { SWRConfig } from 'swr'
 
 import { ThemeProvider } from '@mui/system'
 import { lightTheme } from '../themes'
-import { CartProvider, UiProvider } from '../context'
+import { AuthProvider, CartProvider, UiProvider } from '../context'
 import { useEffect, useState } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -14,10 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   /* A hack to prevent the page from rendering twice. */
   const [showChild, setShowChild] = useState(false);
   useEffect(() => {
-      setShowChild(true);
+    setShowChild(true);
   }, []);
   if (!showChild) {
-      return <></>;
+    return <></>;
   }
 
   return (
@@ -27,19 +27,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
       }}
     >
-
-      <CartProvider>
-
-        <UiProvider>
-
-          <ThemeProvider theme={lightTheme}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </UiProvider>
-      </CartProvider>
-
-
+      <AuthProvider>
+        <CartProvider>
+          <UiProvider>
+            <ThemeProvider theme={lightTheme}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </UiProvider>
+        </CartProvider>
+      </AuthProvider>
     </SWRConfig>
 
   )
