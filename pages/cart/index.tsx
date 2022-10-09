@@ -1,11 +1,27 @@
+import { useContext, useEffect } from "react";
+import { CartContext } from "../../context";
+
 import { Box, Button, Card, CardContent, Divider, Grid, Link, Typography } from "@mui/material"
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
 import NextLink from 'next/link';
+import { useRouter } from "next/router";
 
 
 const CartPage = () => {
 
+    const { isLoaded, cart } = useContext(CartContext);
+    const router = useRouter()
+
+    useEffect(() => {
+        if(isLoaded && cart.length === 0 ){
+            router.replace('/cart/empty');
+        }
+    }, [isLoaded, cart, router]);
+
+    if(!isLoaded || cart.length === 0){
+        return (<></>)
+    }
 
 
     return (
@@ -30,7 +46,7 @@ const CartPage = () => {
                                 <NextLink href='/checkout/summary'>
                                     <Link>
 
-                                        <Button color="secondary"  fullWidth>Checkout</Button>
+                                        <Button color="secondary" fullWidth>Checkout</Button>
                                     </Link>
                                 </NextLink>
 

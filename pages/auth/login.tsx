@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 
 
 type FormData = {
-  email:    string,
+  email: string,
   password: string,
 };
 
@@ -23,25 +23,25 @@ const LoginPage = () => {
 
   const router = useRouter()
 
-  const {loginUser} = useContext(AuthContext)
+  const { loginUser } = useContext(AuthContext)
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [showError, setShowError] = useState(false)
 
 
-  const onLoginUser = async({email, password}: FormData) => {
+  const onLoginUser = async ({ email, password }: FormData) => {
 
     setShowError(false);
 
-    const isValidLogin = await loginUser(email,password);
+    const isValidLogin = await loginUser(email, password);
 
-    if(!isValidLogin){
+    if (!isValidLogin) {
       setShowError(true);
-      
+
       setTimeout(() => {
         setShowError(false);
 
-      },3000)
+      }, 3000)
       return;
     }
 
@@ -60,11 +60,11 @@ const LoginPage = () => {
             <Grid item>
               <Typography variant='h1' component='h1'>Iniciar Sesión</Typography>
               <Chip
-                label = 'No se reconoce el correo / contraseña'
-                color = 'error'
-                icon = {<ErrorOutline/>}
-                className = 'fadeIn'
-                sx = {{display: showError ? 'flex': 'none'}}
+                label='No se reconoce el correo / contraseña'
+                color='error'
+                icon={<ErrorOutline />}
+                className='fadeIn'
+                sx={{ display: showError ? 'flex' : 'none' }}
               />
             </Grid>
 
@@ -74,7 +74,7 @@ const LoginPage = () => {
                 label='Correo'
                 variant='filled'
                 fullWidth
-                
+
                 {
                 ...register('email', {
                   required: 'Este campo es obligatorio',
@@ -91,9 +91,9 @@ const LoginPage = () => {
                 type='password'
                 variant='filled'
                 fullWidth
-                {...register('password',{
+                {...register('password', {
                   required: 'Este campo es requerido',
-                  minLength: {value: 6, message: 'Mínimo 6 caracteres'}
+                  minLength: { value: 6, message: 'Mínimo 6 caracteres' }
                 })}
                 error={!!errors.password}
                 helperText={errors.password?.message}
@@ -113,7 +113,8 @@ const LoginPage = () => {
             </Grid>
 
             <Grid item xs={12} display='flex' justifyContent='end'>
-              <NextLink href='/auth/register' passHref>
+              <NextLink
+                href={router.query.p ? `/auth/register?p=${router.query.p}` : '/auth/register'} passHref>
                 <Link underline="always">
                   ¿Aun no estás registrad@?
                 </Link>
