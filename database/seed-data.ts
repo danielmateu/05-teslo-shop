@@ -1,59 +1,49 @@
-import bcrypt from "bcryptjs";
-
+import bcrypt from 'bcryptjs';
 
 
 interface SeedProduct {
-    description: string;
-    images: string[];
-    inStock: number;
-    price: number;
-    sizes: ValidSizes[];
-    slug: string;
-    tags: string[];
-    title: string;
-    type: ValidTypes;
-    gender: 'men' | 'women' | 'kid' | 'unisex'
+    description : string;
+    images      : string[];
+    inStock     : number;
+    price       : number;
+    sizes       : ValidSizes[];
+    slug        : string;
+    tags        : string[];
+    title       : string;
+    type        : ValidTypes;
+    gender      : 'men' | 'women' | 'kid' | 'unisex'
 }
 
 type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 type ValidTypes = 'shirts' | 'pants' | 'hoodies' | 'hats';
 
+
+interface SeedUser {
+    name     : string;
+    email    : string;
+    password : string;
+    role     : 'admin' | 'client'
+}
+
 interface SeedData {
-    users:       SeedUser[];
-    products:   SeedProduct[],
+    users   : SeedUser[];
+    products: SeedProduct[],
 }
-
-interface  SeedUser {
-    name:       string;
-    email:      string;
-    password:   string;
-    role:       'admin'|'client'
-}
-
-
-
 
 export const initialData: SeedData = {
-    users:[
+    users: [
         {
-            name: 'Daniel Mateu',
-            email: 'danielmateu@gmail.com',
-            password: bcrypt.hashSync('123456') ,
-            role: 'admin',
+            name    : 'Daniel Mateu',
+            email   : 'danielmateu@gmail.com',
+            password: bcrypt.hashSync('123456'),
+            role    : 'admin',
         },
         {
-            name: 'Silvia Cazorla',
-            email: 'silviacazorla@gmail.com',
-            password: bcrypt.hashSync('123456') ,
-            role: 'admin',
+            name    : 'Silvia Cazorla',
+            email   : 'silviacazorla@gmail.com',
+            password: bcrypt.hashSync('123456'),
+            role    : 'admin',
         },
-        {
-            name: 'Nuk Peluk',
-            email: 'nukpeluk@gmail.com',
-            password: bcrypt.hashSync('123456') ,
-            role: 'client',
-        },
-        
     ],
     products: [
         {

@@ -35,8 +35,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const { email = '', password = '', name = '' } = req.body as {email : string, password : string, name : string}
-
-    await db.disconnect();
     
     //Validate email
     
@@ -50,21 +48,21 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
     if(!validations.isValidEmail(email)){
         return res.status(400).json({ message: 'Parece que el mail no es correcto'})
     }
-    
-    
+
     await db.connect();
     const user = await User.findOne({ email });
-
+    
     if(user){
+        await db.disconnect();
         return res.status(400).json({ message: 'No puede usar ese correo, ya está registrado'})
     }
-
     const newUser = new User({
         email: email.toLocaleLowerCase(),
         password: bcrypt.hashSync(password),
         role: 'client',
         name,
     });
+
 
     try {
         await newUser.save({validateBeforeSave: true});

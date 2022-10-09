@@ -13,7 +13,7 @@ export const SideMenu = () => {
 
     const onSearchTerm = () => {
         if(searchTerm.trim().length === 0) return;
-        push(`/search/${searchTerm}`)
+        navigateTo(`/search/${searchTerm}`)
     }
 
     const navigateTo = (url: string) => {
@@ -140,6 +140,6 @@ export const SideMenu = () => {
     )
 }
 
-function push(arg0: string) {
-    throw new Error("Function not implemented.")
-}
+
+
+

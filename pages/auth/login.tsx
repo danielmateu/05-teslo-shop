@@ -86,7 +86,7 @@ const LoginPage = () => {
 
             <Grid item xs={12}>
               <TextField
-                label='Contraseña (entre comillas " ") '
+                label='Contraseña'
                 type='password'
                 variant='filled'
                 fullWidth
