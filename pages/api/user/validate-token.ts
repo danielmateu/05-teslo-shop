@@ -1,6 +1,3 @@
-
-
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcryptjs';
 
@@ -13,10 +10,9 @@ type Data =
 | {
     token: string, 
     user:{  
-        email: string,   
-        role: string,     
-        name: string,
-        
+        email: string;
+        name: string;
+        role: string;
         }
 };
 
@@ -44,7 +40,7 @@ const checkJWT = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     let userId = '';
 
     try {
-        userId = await jwt.isValidToken(token);
+        userId = await jwt.isValidToken(token.toString());
     } catch (error) {
         return res.status(401).json({ message: 'El token de autorización no es válido'})
     }
