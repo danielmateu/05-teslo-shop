@@ -3,94 +3,105 @@ import Cookie from 'js-cookie';
 
 import { ICartProduct } from '../../interfaces';
 import { CartContext, cartReducer } from './';
-import Cookies from 'js-cookie';
-
-
 
 export interface CartState {
-    isLoaded: boolean;
-    cart: ICartProduct[];
-    numberOfItems: number;
-    subTotal: number;
-    tax: number;
-    total: number;
-    
+    isLoaded        : boolean;
+    cart            : ICartProduct[];
+    numberOfItems   : number;
+    subTotal        : number;
+    tax             : number;
+    total           : number;
+
+    shippingAddress? : ShippingAddress;
+
+}
+export interface ShippingAddress {
+    firstName: string;
+    lastName : string;
+    address  : string;
+    address2?: string;
+    zip      : string;
+    city     : string;
+    country  : string;
+    phone    : string;
 }
 
-
-
 export const CART_INITIAL_STATE: CartState = {
-    isLoaded: false,
-    cart: [],
-    numberOfItems: 0,
-    subTotal: 0,
-    tax: 0,
-    total: 0,
-    
-
+    isLoaded        : false,
+    cart            : [],
+    numberOfItems   : 0,
+    subTotal        : 0,
+    tax             : 0,
+    total           : 0,
+    shippingAddress : undefined,
 
 };
-
 
 export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
-    
+
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        if (isMounted) Cookies.set("cart", JSON.stringify(state.cart));
+        if (isMounted) Cookie.set("cart", JSON.stringify(state.cart));
     }, [state.cart, isMounted]);
-
-    // useEffect(() => {
-    //     if (!isMounted) {
-    //         const cart = JSON.parse(Cookies.get("cart") ?? "[]");
-    //         dispatch({
-    //             type: "[Cart] - LoadCart from cookies | storage",
-    //             payload: cart,
-    //         });
-    //         setIsMounted(true);
-    //     }
-    // }, [isMounted]);
-
 
     useEffect(() => {
         try {
-            const cookieProducts = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')!) : []
+            const cookieProducts = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
 
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
-            // dispatch({ type: '[Cart] - LoadCart from cookies | storage', dispatch: [] });
+            dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
     }, []);
+
+
+
+
+    useEffect(() => {
+
+        if(Cookie.get('firstName')){
+            
+            const shippingAddress = {
+                firstName   : Cookie.get('firstName') || '',
+                lastName    : Cookie.get('lastName') || '',
+                address     : Cookie.get('address') || '',
+                address2    : Cookie.get('address2') || '',
+                zip         : Cookie.get('zip') || '',
+                city        : Cookie.get('city') || '',
+                country     : Cookie.get('country') || '',
+                phone       : Cookie.get('phone') || '',
+            }
+            dispatch({ type: '[Cart] - Load address from Cookies', payload: shippingAddress });
+        }
+
+    }, [])
 
     useEffect(() => {
         Cookie.set('cart', JSON.stringify(state.cart))
     }, [state.cart]);
 
     useEffect(() => {
-
-        const numberOfItems = state.cart.reduce( (prev, current) => current.quantity + prev , 0)
-        const subTotal = state.cart.reduce( (prev, current) =>(current.quantity * current.price) + prev, 0);
-        const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0 );
+        const numberOfItems = state.cart.reduce((prev, current) => current.quantity + prev, 0)
+        const subTotal = state.cart.reduce((prev, current) => (current.quantity * current.price) + prev, 0);
+        const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
 
         const orderSummary = {
             numberOfItems,
             subTotal,
             tax: subTotal * taxRate,
-            total : subTotal * (taxRate + 1)
+            total: subTotal * (taxRate + 1)
         }
 
-
-        dispatch({type: '[Cart] - Update order summary', payload: orderSummary});
-
+        dispatch({ type: '[Cart] - Update order summary', payload: orderSummary });
     }, [state.cart])
 
 
 
     const addProductToCart = (product: ICartProduct) => {
-        
         /* Checking if the product is already in the cart. If it is not, it will add it to the cart. */
         const productInCart = state.cart.some(p => p._id === product._id);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] });
@@ -109,19 +120,15 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             p.quantity += product.quantity;
             return p;
         })
-
         dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
     }
 
-    const updateCartQuantity = (product : ICartProduct) => {
-        dispatch({ type: '[Cart] - Change cart quantity', payload: product})
+    const updateCartQuantity = (product: ICartProduct) => {
+        dispatch({ type: '[Cart] - Change cart quantity', payload: product })
     }
-    
-    const removeCartProduct = (product : ICartProduct) => {
-        
-    
-        dispatch({ type: '[Cart] - Remove product in cart', payload: product})
-        
+
+    const removeCartProduct = (product: ICartProduct) => {
+        dispatch({ type: '[Cart] - Remove product in cart', payload: product })
     }
 
     return (
@@ -132,6 +139,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             addProductToCart,
             updateCartQuantity,
             removeCartProduct,
+
         }}>
             {children}
         </CartContext.Provider>
