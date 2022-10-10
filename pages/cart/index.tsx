@@ -14,12 +14,12 @@ const CartPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if(isLoaded && cart.length === 0 ){
+        if (isLoaded && cart.length === 0) {
             router.replace('/cart/empty');
         }
     }, [isLoaded, cart, router]);
 
-    if(!isLoaded || cart.length === 0){
+    if (!isLoaded || cart.length === 0) {
         return (<></>)
     }
 
@@ -37,19 +37,19 @@ const CartPage = () => {
                 <Grid item xs={12} md={5} >
                     <Card className="summary-card">
                         <CardContent>
-                            <Typography variant="h2">Order</Typography>
+                            <Typography variant="h2">Pedido</Typography>
                             <Divider sx={{ my: 1, mb: 2 }} />
 
                             {/* ORDER SUMARY */}
                             <OrderSummary />
                             <Box sx={{ mt: 3 }}>
-                                <NextLink href='/checkout/summary'>
-                                    <Link>
-
-                                        <Button color="secondary" fullWidth>Checkout</Button>
-                                    </Link>
-                                </NextLink>
-
+                                <Button
+                                    color="secondary"
+                                    fullWidth
+                                    href="/checkout/address"
+                                >
+                                    Checkout
+                                </Button>
                             </Box>
 
                         </CardContent>

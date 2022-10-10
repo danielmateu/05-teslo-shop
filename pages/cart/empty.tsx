@@ -16,9 +16,10 @@ const EmptyPage = () => {
                 alignItems='center'
                 height='calc(100vh - 200px)'
                 sx={{ flexdirection: {xs: 'column', sm: 'row' }}}
+                className='fadeIn'
             >
                 <RemoveShoppingCartOutlined sx = {{fontSize: 100}}/>
-                <Box display='flex' flexDirection='column' alignItems='center' >
+                <Box display='flex' flexDirection='column' alignItems='center'  >
                     <Typography marginLeft={2}>Su carrito está vacio</Typography>
                     <NextLink href="/" passHref>
                         <Link typography='h4' color='secondary'>
