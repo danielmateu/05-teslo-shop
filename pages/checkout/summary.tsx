@@ -1,5 +1,4 @@
 import { useContext, useMemo, useState } from "react";
-import { useRouter } from "next/router";
 import { Box, Button, Card, CardContent, Divider, Grid, Link, Typography } from "@mui/material"
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"

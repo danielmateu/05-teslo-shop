@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../context";
 
-import { Box, Button, Card, CardContent, Divider, Grid, Link, Typography } from "@mui/material"
+import { Box, Button, Card, CardContent, Divider, Grid, Typography } from "@mui/material"
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
-import NextLink from 'next/link';
+
 import { useRouter } from "next/router";
 
 
