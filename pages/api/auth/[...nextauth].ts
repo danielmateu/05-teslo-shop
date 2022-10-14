@@ -1,5 +1,7 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
+
 import Credentials from 'next-auth/providers/credentials';
 import { NextAuthOptions } from 'next-auth';
 import {dbUsers} from '../../../database'
@@ -29,10 +31,10 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET,
         }),
-        // GoogleProvider({
-        //     clientId: process.env.GOOGLE_ID,
-        //     clientSecret: process.env.GOOGLE_SECRET
-        // }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID || '',
+            clientSecret: process.env.GOOGLE_SECRET || '' ,
+        }),
     ],
 
     callbacks: {
@@ -47,7 +49,7 @@ export const authOptions: NextAuthOptions = {
 
                     case 'oauth':
                         //TODO Crear usuario o verificar si existe en la DB
-                        // token.user = await dbUsers.oAUthToDbUser( user?.email || '', user?.name || '' );
+                        token.user = await dbUsers.oAuthToDbUser( user?.email || '', user?.name || '' );
                         break;
 
                     case 'credentials':
@@ -77,6 +79,7 @@ export const authOptions: NextAuthOptions = {
 };
 
 export default NextAuth(authOptions);
+
 
 
 
