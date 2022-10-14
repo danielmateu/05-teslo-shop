@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
 import NextLink from 'next/link';
+import { GetServerSideProps } from 'next';
 
 import { AuthLayout } from '../../components/layouts'
 import { AuthContext } from '../../context';
@@ -13,6 +14,7 @@ import { Box } from '@mui/system'
 
 import { tesloApi } from '../../api';
 import { validations } from '../../utils';
+import { getSession, signIn } from 'next-auth/react';
 
 type FormData = {
     name: string;
@@ -24,7 +26,7 @@ type FormData = {
 const RegisterPage = () => {
 
     const router = useRouter();
-    const {registerUser} = useContext(AuthContext)
+    const { registerUser } = useContext(AuthContext)
 
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
@@ -34,12 +36,12 @@ const RegisterPage = () => {
     const onRegisterForm = async ({ name, email, password }: FormData) => {
         console.log(name, email, password)
         setShowError(false);
-        const {hasError, message} = await registerUser(name, email, password);
+        const { hasError, message } = await registerUser(name, email, password);
 
-        if(hasError){
+        if (hasError) {
             setShowError(true);
             setErrorMessage(message!);
-            setTimeout(() => setShowError(false),3000);
+            setTimeout(() => setShowError(false), 3000);
             return;
         }
 
@@ -58,8 +60,9 @@ const RegisterPage = () => {
         }
 
         //TODO: Navegar a la pagina que el usuario estaba
-        const destination = router.query.p?.toString() || '/'
-        router.replace(destination);
+        // const destination = router.query.p?.toString() || '/'
+        // router.replace(destination);
+        await signIn('credentials', { email, password });
     }
 
     return (
@@ -140,9 +143,9 @@ const RegisterPage = () => {
                         </Grid>
 
                         <Grid item xs={12} display='flex' justifyContent='end'>
-                            <NextLink 
-                            href={router.query.p ? `/auth/login?p=${router.query.p}` : '/auth/login'}
-                            passHref>
+                            <NextLink
+                                href={router.query.p ? `/auth/login?p=${router.query.p}` : '/auth/login'}
+                                passHref>
                                 <Link underline="always">
                                     ¿Ya estás registrad@?
                                 </Link>
@@ -159,6 +162,25 @@ const RegisterPage = () => {
 
         </AuthLayout>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+
+    const session = await getSession({ req })
+
+    const { p = '/' } = query
+
+    if (session) {
+        return {
+            redirect: {
+                destination: p.toString(),
+                permanent: false,
+            }
+        }
+    }
+    return {
+        props: {}
+    }
 }
 
 export default RegisterPage

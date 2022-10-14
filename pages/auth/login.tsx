@@ -1,16 +1,20 @@
-import NextLink from 'next/link';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
-import { useState, useContext } from 'react';
+import { GetServerSideProps } from 'next'
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { getSession, signIn } from 'next-auth/react';
 
+
+
+import { Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { AuthLayout } from '../../components/layouts'
 import { validations } from '../../utils';
-import { tesloApi } from '../../api';
+// import { tesloApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
 import { AuthContext } from '../../context';
-import { useRouter } from 'next/router';
 
 
 type FormData = {
@@ -23,7 +27,7 @@ const LoginPage = () => {
 
   const router = useRouter()
 
-  const { loginUser } = useContext(AuthContext)
+  const { loginUser } = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [showError, setShowError] = useState(false)
@@ -33,21 +37,23 @@ const LoginPage = () => {
 
     setShowError(false);
 
-    const isValidLogin = await loginUser(email, password);
+    // const isValidLogin = await loginUser(email, password);
 
-    if (!isValidLogin) {
-      setShowError(true);
+    // if (!isValidLogin) {
+    //   setShowError(true);
 
-      setTimeout(() => {
-        setShowError(false);
+    //   setTimeout(() => {
+    //     setShowError(false);
 
-      }, 3000)
-      return;
-    }
+    //   }, 3000)
+    //   return;
+    // }
 
-    //TODO: Navegar a la pantalla en la que el usuario estaba
-    const destination = router.query.p?.toString() || '/'
-    router.replace(destination);
+    // //TODO: Navegar a la pantalla en la que el usuario estaba
+    // const destination = router.query.p?.toString() || '/'
+    // router.replace(destination);
+
+    await signIn('credentials',{email, password});
 
   }
 
@@ -130,6 +136,30 @@ const LoginPage = () => {
 
     </AuthLayout>
   )
+}
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+
+export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
+  
+  const session = await getSession({req})
+
+  const {p = '/'} = query
+
+  if(session){
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false,
+      }
+    }
+  }
+  return {
+    props: {
+      
+    }
+  }
 }
 
 export default LoginPage

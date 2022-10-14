@@ -37,6 +37,19 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
 
+    //CUstom Pages
+    pages: {
+        signIn: '/auth/login',
+        newUser: '/auth/register',
+    },
+
+    session: {
+        maxAge: 2592000, //3d
+        strategy: 'jwt',
+        updateAge: 86400,
+
+    },
+
     callbacks: {
 
         async jwt({ token, account, user }) {
