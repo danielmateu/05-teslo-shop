@@ -137,8 +137,28 @@ const LoginPage = () => {
               </NextLink>
             </Grid>
 
-            <Grid item xs={12} display='flex' justifyContent='end'>
+            <Grid item xs={12} display='flex' flexDirection="column" justifyContent='end'>
               <Divider sx = {{width: '100%', mb: 2}}/>
+              {
+                Object.values(providers).map((provider: any)=> {
+
+                  if(provider.id === 'credentials') return (<div key='credentialss'></div>)
+
+                  return(
+                    <Button key={provider.name}
+                    
+                    color='secondary'
+                    className='circular-btn'
+                    size='large'
+                    fullWidth
+                    sx = {{mb: 1}}
+                    onClick={() => signIn(provider.id)}
+                    >
+                      {provider.name}
+                    </Button>
+                  )
+                })
+              }
             </Grid>
 
 
