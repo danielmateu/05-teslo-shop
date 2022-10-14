@@ -1,11 +1,9 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
+import { NextAuthOptions } from 'next-auth';
 
-
-
-
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
 
     // OAuth authentication providers...
     providers: [
@@ -36,22 +34,12 @@ export default NextAuth({
         // }),
     ],
 
-    // Callbacks
-    jwt: {
-        // secret: process.env.JWT_SECRET_SEED, // deprecated
-    },
-
-    session: {
-        maxAge: 2592000, /// 30d
-        strategy: 'jwt',
-        updateAge: 86400, // cada día
-    },
 
 
     callbacks: {
 
         async jwt({ token, account, user }) {
-            // console.log({ token, account, user });
+            console.log({ token, account, user });
 
             if (account) {
                 token.accessToken = account.access_token;
@@ -74,7 +62,7 @@ export default NextAuth({
 
 
         async session({ session, token, user }) {
-            // console.log({ session, token, user });
+            console.log({ session, token, user });
 
             /* A property that is added to the `token` object. */
             session.accessToken = token.accessToken
@@ -86,7 +74,9 @@ export default NextAuth({
 
     }
 
-});
+};
+
+export default NextAuth(authOptions);
 
 
 
