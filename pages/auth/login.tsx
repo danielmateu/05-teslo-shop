@@ -1,20 +1,20 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { GetServerSideProps } from 'next'
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession, signIn, getProviders } from 'next-auth/react';
 
 
 
-import { Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
+import { Button, Chip, Divider, Grid, Link, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { AuthLayout } from '../../components/layouts'
 import { validations } from '../../utils';
 // import { tesloApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
-import { AuthContext } from '../../context';
+// import { AuthContext } from '../../context';
 
 
 type FormData = {
@@ -27,7 +27,17 @@ const LoginPage = () => {
 
   const router = useRouter()
 
-  const { loginUser } = useContext(AuthContext);
+  // const { loginUser } = useContext(AuthContext);
+
+  const [providers, setProviders] = useState<any>({});
+
+  useEffect(() => {
+    getProviders().then(providers =>{
+      console.log({providers})
+      setProviders(providers);
+    })
+  }, [])
+  
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [showError, setShowError] = useState(false)
@@ -125,6 +135,10 @@ const LoginPage = () => {
                   ¿Aun no estás registrad@?
                 </Link>
               </NextLink>
+            </Grid>
+
+            <Grid item xs={12} display='flex' justifyContent='end'>
+              <Divider sx = {{width: '100%', mb: 2}}/>
             </Grid>
 
 
