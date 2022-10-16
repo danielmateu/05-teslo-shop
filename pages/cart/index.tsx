@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
-import { CartContext } from "../../context";
+import { useRouter } from "next/router";
 
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from "@mui/material"
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
 
-import { useRouter } from "next/router";
+import { CartContext } from "../../context";
 
 
 const CartPage = () => {
@@ -13,12 +13,14 @@ const CartPage = () => {
     const { isLoaded, cart } = useContext(CartContext);
     const router = useRouter()
 
+    /* Redirecting to the empty cart page if the cart is empty. */
     useEffect(() => {
         if (isLoaded && cart.length === 0) {
             router.replace('/cart/empty');
         }
     }, [isLoaded, cart, router]);
 
+    /* Checking if the cart is empty or not. If it is empty, it will redirect to the empty cart page. */
     if (!isLoaded || cart.length === 0) {
         return (<></>)
     }
