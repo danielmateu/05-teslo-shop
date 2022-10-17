@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-
+// import { useSession } from 'next-auth/react';
 
 import { Typography } from '@mui/material'
 
@@ -14,7 +14,7 @@ import { FullScreenLoading } from '../components/ui';
 
 const HomePage: NextPage = () => {
 
-
+  
   
   const {products, isLoading} = useProducts('/products');
 

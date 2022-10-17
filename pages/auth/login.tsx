@@ -70,7 +70,7 @@ const LoginPage = () => {
   return (
     <AuthLayout title={"Ingresar"}>
       <form onSubmit={handleSubmit(onLoginUser)} noValidate>
-        <Box sx={{ width: 350, padding: '12em 1em' }} >
+        <Box sx={{ width: 350, padding: '8em 1em' }} >
 
           <Grid container spacing={2}  >
             <Grid item>
@@ -177,10 +177,14 @@ const LoginPage = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
   
+  /* Checking if the user is logged in. */
   const session = await getSession({req})
 
+  /* Destructuring the query object and setting a default value of `/` to the `p` property. */
   const {p = '/'} = query
 
+  /* Checking if the user is logged in. If the user is logged in, it will redirect the user to the page
+  they were on before they were redirected to the login page. */
   if(session){
     return {
       redirect: {
@@ -190,9 +194,7 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
     }
   }
   return {
-    props: {
-      
-    }
+    props: { }
   }
 }
 

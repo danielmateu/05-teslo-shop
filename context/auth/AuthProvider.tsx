@@ -7,8 +7,6 @@ import { tesloApi } from '../../api';
 import { IUser } from '../../interfaces';
 import { AuthContext, authReducer } from './';
 
-
-
 export interface AuthState {
     isLoggedIn: boolean;
     user?: IUser;
@@ -18,8 +16,6 @@ const AUTH_INITIAL_STATE: AuthState = {
     isLoggedIn: false,
     user: undefined,
 };
-
-
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
@@ -109,6 +105,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         Cookies.remove('country')
         Cookies.remove('phone')
 
+        /* A function from the next-auth package. */
         signOut();
 
         // Cookies.remove('token');

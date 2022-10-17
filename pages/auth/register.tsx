@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import NextLink from 'next/link';
 import { GetServerSideProps } from 'next';
+import { getSession, signIn } from 'next-auth/react';
 
 import { AuthLayout } from '../../components/layouts'
 import { AuthContext } from '../../context';
@@ -12,9 +13,7 @@ import { Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
 import { ErrorOutline } from '@mui/icons-material';
 import { Box } from '@mui/system'
 
-import { tesloApi } from '../../api';
 import { validations } from '../../utils';
-import { getSession, signIn } from 'next-auth/react';
 
 type FormData = {
     name: string;
@@ -38,6 +37,7 @@ const RegisterPage = () => {
         setShowError(false);
         const { hasError, message } = await registerUser(name, email, password);
 
+        /* Setting the error message to be displayed to the user. */
         if (hasError) {
             setShowError(true);
             setErrorMessage(message!);
@@ -45,23 +45,24 @@ const RegisterPage = () => {
             return;
         }
 
-        try {
+        // try {
 
-            const { data } = await tesloApi.post('user/register', { name, email, password });
-            const { token, user } = data;
-            console.log({ token, user })
+        //     const { data } = await tesloApi.post('user/register', { name, email, password });
+        //     const { token, user } = data;
+        //     console.log({ token, user })
 
-        } catch (error) {
-            console.log(error);
-            setShowError(true);
-            setTimeout(() => {
-                setShowError(false);
-            }, 3000)
-        }
+        // } catch (error) {
+        //     console.log(error);
+        //     setShowError(true);
+        //     setTimeout(() => {
+        //         setShowError(false);
+        //     }, 3000)
+        // }
 
         //TODO: Navegar a la pagina que el usuario estaba
         // const destination = router.query.p?.toString() || '/'
         // router.replace(destination);
+
         await signIn('credentials', { email, password });
     }
 
