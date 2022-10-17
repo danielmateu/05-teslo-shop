@@ -1,13 +1,16 @@
 import '../styles/globals.css'
+
+import { useEffect, useState } from 'react'
+
 import { SessionProvider } from "next-auth/react"
 import type { AppProps } from 'next/app'
-import { CssBaseline } from '@mui/material'
 import useSWR, { SWRConfig } from 'swr'
 
+import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/system'
+
 import { lightTheme } from '../themes'
 import { AuthProvider, CartProvider, UiProvider } from '../context'
-import { useEffect, useState } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -21,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <SessionProvider >
+    <SessionProvider>
       <SWRConfig
         value={{
           fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
