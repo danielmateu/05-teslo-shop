@@ -17,7 +17,7 @@ import { countries } from "../../utils";
 const SummaryPage = () => {
 
     const router = useRouter()
-    const {shippingAddress, numberOfItems} = useContext(CartContext);
+    const {shippingAddress, numberOfItems, createOrder} = useContext(CartContext);
 
     useEffect(() => {
 
@@ -33,7 +33,9 @@ const SummaryPage = () => {
 
     const {firstName, lastName, address, address2='', city, country, zip, phone} = shippingAddress;
     
-
+    const onCreateOrder = () => {
+        createOrder()
+    }
 
     return (
         <ShopLayout title={"Resumen del pedido"} pageDescription={"Resumen del pedido"}>
@@ -80,7 +82,11 @@ const SummaryPage = () => {
                             <OrderSummary />
 
                             <Box sx={{ mt: 3 }}>
-                                <Button color="secondary" fullWidth>Checkout</Button>
+                                <Button 
+                                color="secondary" 
+                                fullWidth
+                                onClick={onCreateOrder}
+                                >Confirmar pedido</Button>
 
                             </Box>
 
