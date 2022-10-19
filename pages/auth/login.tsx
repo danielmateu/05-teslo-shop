@@ -70,7 +70,7 @@ const LoginPage = () => {
   return (
     <AuthLayout title={"Ingresar"}>
       <form onSubmit={handleSubmit(onLoginUser)} noValidate>
-        <Box sx={{ width: 350, padding: '8em 1em' }} >
+        <Box sx={{ width: 350, padding: '8em 0em' }} >
 
           <Grid container spacing={2}  >
             <Grid item>

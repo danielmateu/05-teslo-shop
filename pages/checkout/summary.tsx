@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect } from "react";
 import NextLink from 'next/link';
 import { useRouter } from "next/router";
 
@@ -9,7 +9,7 @@ import { Box, Button, Card, CardContent, Divider, Grid, Link, Typography } from 
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
 import { CartContext } from "../../context";
-import { countries } from "../../utils";
+// import { countries } from "../../utils";
 
 
 

@@ -19,7 +19,7 @@ const HomePage: NextPage = () => {
   const {products, isLoading} = useProducts('/products');
 
   return (
-    <ShopLayout title={'Mundocamper - Home'} pageDescription={'Encuentra los mejores productos de Teslo aquí'}>
+    <ShopLayout title={'SolidCamper - Home'} pageDescription={'Encuentra los mejores productos del mundo camper aquí'}>
       <Typography variant="h1" component='h1' >Tienda</Typography>
       <Typography variant="h2" sx={{ mb: 1 }} >Todos los productos</Typography>
 
