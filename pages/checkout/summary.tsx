@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import NextLink from 'next/link';
 import { useRouter } from "next/router";
 
 import Cookies from "js-cookie";
 
-import { Box, Button, Card, CardContent, Divider, Grid, Link, Typography } from "@mui/material"
+import { Box, Button, Card, CardContent, Chip, Divider, Grid, Link, Typography } from "@mui/material"
 
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
@@ -18,6 +18,9 @@ const SummaryPage = () => {
 
     const router = useRouter()
     const {shippingAddress, numberOfItems, createOrder} = useContext(CartContext);
+
+    const [isPosting, setIsPosting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
 
@@ -33,8 +36,19 @@ const SummaryPage = () => {
 
     const {firstName, lastName, address, address2='', city, country, zip, phone} = shippingAddress;
     
-    const onCreateOrder = () => {
-        createOrder()
+    const onCreateOrder = async() => {
+        setIsPosting(true);
+
+        const {hasError, message} = await createOrder(); //TODO: depende del resultado debo de navegar o no
+        
+        if(hasError){
+            setIsPosting(false);
+            setErrorMessage( message );
+            return;
+        }
+
+        router.replace(`/orders/${message}`)
+
     }
 
     return (
@@ -81,12 +95,22 @@ const SummaryPage = () => {
                             {/* ORDER SUMARY */}
                             <OrderSummary />
 
-                            <Box sx={{ mt: 3 }}>
+                            <Box sx={{ mt: 3 }} display='flex' flexDirection='column'>
                                 <Button 
                                 color="secondary" 
                                 fullWidth
                                 onClick={onCreateOrder}
-                                >Confirmar pedido</Button>
+                                disabled={isPosting}
+                                >
+                                    Confirmar pedido
+                            </Button>
+
+                            <Chip
+                                color="error"
+                                label={errorMessage}
+                                sx = {{display: errorMessage ? 'flex' : 'none', mt: 1}}
+                            
+                            />
 
                             </Box>
 

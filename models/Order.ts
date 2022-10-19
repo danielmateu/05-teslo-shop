@@ -2,9 +2,6 @@ import mongoose, { Schema, model, Model } from "mongoose";
 import { IOrder } from '../interfaces';
 
 
-
-
-
 const orderSchema = new Schema({
 
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },

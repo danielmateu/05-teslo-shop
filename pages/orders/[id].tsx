@@ -1,11 +1,23 @@
-import { Box, Button, Card, CardContent, Chip, Divider, Grid, Link, Typography } from "@mui/material"
+import { GetServerSideProps, NextPage } from 'next'
+import NextLink from 'next/link';
+
+import { Box, Card, CardContent, Chip, Divider, Grid, Link, Typography } from "@mui/material";
+import { CreditScoreOutlined } from "@mui/icons-material";
+
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
-import NextLink from 'next/link';
-import { CreditCardOffOutlined, CreditScoreOutlined } from "@mui/icons-material";
+import { getSession } from 'next-auth/react';
+import { dbOrders } from '../../database';
+import { IOrder } from '../../interfaces';
 
+interface Props { 
+    order: IOrder;
+}
 
-const OrderPage = () => {
+const OrderPage: NextPage<Props> = ({order}) => {
+
+    console.log({order});
+
     return (
         <ShopLayout title={"Resumen del pedido 123456"} pageDescription={"Resumen del pedido"}>
             <Typography variant="h1" component='h1'>Pedido: 123456</Typography>
@@ -87,6 +99,52 @@ const OrderPage = () => {
 
         </ShopLayout>
     )
+}
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+
+
+export const getServerSideProps: GetServerSideProps = async ({req,query}) => {
+    
+    const { id = ''} = query;
+
+    const session: any = await getSession({req});
+
+    if(!session){
+        return {
+            redirect: {
+                destination: `/auth/login?p=/orders/${id}`,
+                permanent: false,
+            }
+        };
+    }
+
+    const order = await dbOrders.getOrderById(id.toString());
+
+    if(!order){
+        return {
+            redirect: {
+                destination: `/orders/history`,
+                permanent: false,
+            }
+        }
+    }
+
+    if(order.user!== session.user._id){
+        return {
+            redirect: {
+                destination: `/orders/history`,
+                permanent: false,
+            }
+        }
+    }
+
+    return {
+        props: {
+            order
+        }
+    }
 }
 
 export default OrderPage
