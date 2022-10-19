@@ -13,8 +13,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     switch (req.method) {
         case 'POST':
             return createOrder(req,res)
-            
-    
         default:
             return res.status(400).json({message: 'Bad Request'})
     }
@@ -41,7 +39,7 @@ const createOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     await db.connect();
 
     /* Getting the products from the database. */
-    const dbProducts = await Product.find({_id: {$in: productsIds}});
+    const dbProducts = await Product.find({ _id: {$in: productsIds}});
 
     console.log({dbProducts});
 
@@ -49,18 +47,16 @@ const createOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         const subTotal = orderItems.reduce((prev, current) =>{
             /* Getting the price of the product from the database. */
-            const currentPrice = dbProducts.find(prod => prod.id === current._id)!.price;
-
+            const currentPrice = dbProducts.find(prod => prod.id === current._id)?.price;
             if(!currentPrice){
                 throw new Error("Verifique el carrito de nuevo, producto no existente");
             }
-            return ( currentPrice * current.quantity ) + prev
 
+            return ( currentPrice * current.quantity ) + prev;
         }, 0);
 
         /* Getting the tax rate from the environment variables. If it is not defined, it will be 0. */
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
-
         /* Calculating the total of the order. */
         const backendTotal = subTotal * ( taxRate + 1);
 
@@ -77,6 +73,7 @@ const createOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
         const newOrder = new Order({...req.body, isPaid: false, user: userId});
         /* Saving the order in the database. */
         await newOrder.save();
+        await db.disconnect();
         /* Returning the new order created in the database. */
         return res.status(201).json(newOrder);
 
@@ -88,7 +85,6 @@ const createOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
             message: error.message || 'Revise logs del servidor'
         })
     }
-
 
     // return res.status(201).json(req.body);
 }
