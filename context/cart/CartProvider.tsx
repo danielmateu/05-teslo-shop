@@ -42,14 +42,12 @@ export const CART_INITIAL_STATE: CartState = {
 export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
-
-
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
         if (isMounted) Cookie.set("cart", JSON.stringify(state.cart));
     }, [state.cart, isMounted]);
-
+    //TODO Revisar!
     useEffect(() => {
         try {
             const cookieProducts = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
@@ -61,21 +59,19 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     }, []);
 
 
-
-
     useEffect(() => {
 
         if(Cookie.get('firstName')){
             
             const shippingAddress = {
-                firstName   : Cookie.get('firstName') || '',
-                lastName    : Cookie.get('lastName') || '',
-                address     : Cookie.get('address') || '',
-                address2    : Cookie.get('address2') || '',
-                zip         : Cookie.get('zip') || '',
-                city        : Cookie.get('city') || '',
-                country     : Cookie.get('country') || '',
-                phone       : Cookie.get('phone') || '',
+                firstName   : Cookie.get('firstName')   || '',
+                lastName    : Cookie.get('lastName')    || '',
+                address     : Cookie.get('address')     || '',
+                address2    : Cookie.get('address2')    || '',
+                zip         : Cookie.get('zip')         || '',
+                city        : Cookie.get('city')        || '',
+                country     : Cookie.get('country')     || '',
+                phone       : Cookie.get('phone')       || '',
             }
             dispatch({ type: '[Cart] - Load address from Cookies', payload: shippingAddress });
         }
@@ -163,9 +159,9 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             tax: state.tax,
             total: state.total,
             isPaid: false,
-            _id: '',
-            paymentResult: '',
-            paidAt: ''
+            // _id: '',
+            // paymentResult: '',
+            // paidAt: '',
         }
 
 
