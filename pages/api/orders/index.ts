@@ -71,6 +71,8 @@ const createOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
         /* Creating a new order with the data from the request body, setting the isPaid property to
         false and setting the user property to the user id. */
         const newOrder = new Order({...req.body, isPaid: false, user: userId});
+        /* Rounding the total to 2 decimals. */
+        newOrder.total = Math.round(newOrder.total * 100)/100;
         /* Saving the order in the database. */
         await newOrder.save();
         await db.disconnect();

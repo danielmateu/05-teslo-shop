@@ -29,10 +29,11 @@ const orderSchema = new Schema({
     subTotal        : {type: Number, required: true},
     tax             : {type: Number, required: true},
     total           : {type: Number, required: true},
+
     isPaid          : {type: Boolean, required: true, default: false},
     paidAt          : {type: String},
 
-    // name : {type: String, required: true}
+    transactionId : {type: String},
 }, {
     timestamps: true,
 })

@@ -22,7 +22,7 @@ export const SideMenu = () => {
     }
 
     const navigateTo = (url: string) => {
-        // toggleSideMenu();
+        toggleSideMenu();
         router.push(url);
     }
 
@@ -46,12 +46,15 @@ export const SideMenu = () => {
                             autoFocus
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            onKeyUp={(e) => e.key === 'Enter' && onSearchTerm()}
+                            onKeyUp={(e) => e.key === 'Enter' ? onSearchTerm() : null}
                             type='text'
                             placeholder="Buscar..."
                             endAdornment={
                                 <InputAdornment position="end" >
-                                    <IconButton onClick={onSearchTerm}>
+                                    <IconButton 
+                                        onClick={onSearchTerm}
+                                        
+                                        >
                                         <SearchOutlined />
                                     </IconButton>
                                 </InputAdornment>
@@ -71,7 +74,9 @@ export const SideMenu = () => {
 
                                 <ListItem 
                                 button 
-                                onClick = {() => navigateTo('/orders/history')}>
+                                onClick = {() => navigateTo('/orders/history')}
+                                
+                                >
                                     <ListItemIcon>
                                         <ConfirmationNumberOutlined />
                                     </ListItemIcon>
@@ -80,7 +85,6 @@ export const SideMenu = () => {
                             </>
                         )
                     }
-
 
 
                     <ListItem
