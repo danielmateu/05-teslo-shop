@@ -9,7 +9,7 @@ import { ICartProduct, IOrderItem } from '../../interfaces';
 
 interface Props {
     editable?: boolean;
-    products?:IOrderItem[];
+    products?: IOrderItem[];
 }
 
 
@@ -90,7 +90,7 @@ export const CartList: FC<Props> = ({ editable = false, products }) => {
                             {
                                 editable && (
                                     <Button
-                                        onClick={() => removeCartProduct(product as ICartProduct )}
+                                        onClick={() => removeCartProduct(product as ICartProduct)}
                                         variant='text'
                                         color='secondary'>
                                         Eliminar

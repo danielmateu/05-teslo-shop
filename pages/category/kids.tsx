@@ -15,7 +15,7 @@ const KidPage: NextPage = () => {
 
   return (
 
-    <ShopLayout title={'Mundocamper - Niños'} pageDescription={'Productos para nuestros peques'}>
+    <ShopLayout title={'Solidcamper - Niños'} pageDescription={'Productos para nuestros peques'}>
       <Typography variant="h1" component='h1' >Niñ@s</Typography>
       <Typography variant="h2" sx={{ mb: 1 }} >Todo para l@s peques</Typography>
 

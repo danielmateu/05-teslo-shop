@@ -1,12 +1,12 @@
-import { GetServerSideProps, NextPage } from 'next'
 import NextLink from 'next/link';
+import { GetServerSideProps, NextPage } from 'next'
+import { getSession } from 'next-auth/react';
 
 import { Box, Card, CardContent, Chip, Divider, Grid, Link, Typography } from "@mui/material";
 import { CreditCardOffOutlined, CreditScoreOutlined } from "@mui/icons-material";
 
 import { CartList, OrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layouts"
-import { getSession } from 'next-auth/react';
 import { dbOrders } from '../../database';
 import { IOrder } from '../../interfaces';
 
@@ -16,15 +16,13 @@ interface Props {
 
 const OrderPage: NextPage<Props> = ({ order }) => {
 
-    console.log({ order });
+    // console.log({ order });
 
-    const { shippingAddress } = order
+    const { shippingAddress } = order;
 
     return (
         <ShopLayout title={"Resumen del pedido"} pageDescription={"Resumen del pedido"}>
             <Typography variant="h1" component='h1'>Pedido: {order._id}</Typography>
-
-            {/* */}
 
             {
                 order.isPaid
@@ -51,7 +49,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             }
 
 
-            <Grid container sx={{ justifyContent: 'center', }}>
+            <Grid container className="fadeIn" sx={{ justifyContent: 'center', }}>
                 <Grid item xs={12} md={7} >
                     {/* CartList trabajado con la localstorage y/o cookies*/}
                     <CartList products={order.orderItems} />
@@ -77,16 +75,24 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                             <Typography>{shippingAddress.city} {shippingAddress.zip}</Typography>
                             <Typography>{shippingAddress.country}</Typography>
                             <Typography>{shippingAddress.phone}</Typography>
+
                             <Divider sx={{ my: 1, mb: 2 }} />
 
-
-
                             {/* ORDER SUMARY */}
-                            <OrderSummary />
+                            <OrderSummary
+                                orderValues={
+                                    {
+                                        numberOfItems: order.numberOfItems,
+                                        subTotal     : order.subTotal,
+                                        tax          : order.tax,
+                                        total        : order.total
+                                    }
+                                }
+                            />
 
-                            <Box sx={{ mt: 3 }}>
+                            <Box sx={{ mt: 3 }} display="flex" flex-direction="column">
                                 {/* TODO */}
-                                <h1>Pagar</h1>
+                                {/*  */}
 
                                 {
                                     order.isPaid
@@ -102,18 +108,10 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                         )
                                         :
                                         (
-                                            <Chip
-                                                sx={{ my: 2 }}
-                                                label='Pendiente de pago'
-                                                variant="outlined"
-                                                color="error"
-                                                icon={<CreditCardOffOutlined />}
-                                            />
+                                            <h1>Realizar Pago</h1>
                                         )
                                 }
                             </Box>
-
-
                         </CardContent>
                     </Card>
                 </Grid>
