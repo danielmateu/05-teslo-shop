@@ -13,10 +13,27 @@ export async function middleware(req: NextRequest | any , ev: NextFetchEvent){
         return NextResponse.redirect(`${url.origin}/auth/login?prev=${requestedPage}`)
     }
 
-    const validRoles = ['admin', 'super-user', 'SEO'];
+    if(!session){
+        return new Response(JSON.stringify({ message: 'Sin autorización'}),{
+            status: 401,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
 
+    const validRoles = ['admin', 'super-user', 'SEO'];
     if(!validRoles.includes(session.user.role)){
         return NextResponse.redirect(url.origin);
+    }
+
+    if(!validRoles.includes(session.user.role)){
+        return new Response(JSON.stringify({ message: 'Sin autorización'}),{
+            status: 401,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 
     return NextResponse.next();
