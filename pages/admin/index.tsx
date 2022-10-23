@@ -6,10 +6,10 @@ export const DashboardPage = () => {
     return (
         <AdminLayout
             title='Dashboard'
-            subtitle='Estadisticas generales'
+            subTitle='Estadisticas generales'
             icon={<DashboardOutlined />}
         >
-
+            <h3>Hola mundo</h3>
         </AdminLayout>
     )
 }

@@ -1,33 +1,29 @@
+import { FC } from "react";
 
 import { Box, Typography } from "@mui/material";
-import { FC } from "react";
 import { AdminNavbar } from "../admin";
 import { SideMenu } from "../ui";
 
 
 interface Props {
-    
+
     title: string;
-    subtitle: string;
+    subTitle: string;
     icon?: JSX.Element;
     children?: any
-
-
 }
 
-export const AdminLayout: FC<Props> = ({ children, title, subtitle, icon }) => {
+export const AdminLayout: FC<Props> = ({ children, title, subTitle, icon }) => {
 
 
 
     return (
         <>
-
             <nav>
-                <AdminNavbar/>
+                <AdminNavbar />
             </nav>
 
             <SideMenu />
-            
 
             <main style={{
                 margin: '80px auto',
@@ -41,17 +37,15 @@ export const AdminLayout: FC<Props> = ({ children, title, subtitle, icon }) => {
                         {title}
                     </Typography>
 
-                    <Typography variant='h2' sx={{mb:1}}>{subtitle}</Typography>
+                    <Typography variant='h2' sx={{ mb: 1 }}>{subTitle}</Typography>
                 </Box>
 
                 <Box className="fadeIn">
                     {children}
                 </Box>
 
-                {children}
             </main>
 
-            
         </>
     )
 }

@@ -8,7 +8,6 @@ import { AppBar, Toolbar, Typography, Link, Box, Button } from "@mui/material"
 
 export const AdminNavbar = () => {
 
-
     const { toggleSideMenu } = useContext(UiContext);
 
     return (
@@ -22,7 +21,6 @@ export const AdminNavbar = () => {
                     </Link>
                 </NextLink>
 
-                {/* TODO FLEX */}
 
                 <Box flex={1} />
 
@@ -31,7 +29,7 @@ export const AdminNavbar = () => {
                     {/* <MenuOutlinedIcon /> */}
                 </Button>
 
-                {/* TODO FLEX */}
+
 
             </Toolbar>
         </AppBar>
