@@ -1,7 +1,8 @@
-import { CreditCardOffOutlined, DashboardOutlined } from '@mui/icons-material'
-import { Card, CardContent, Grid, Typography } from '@mui/material'
-import React from 'react'
+import { AccessTimeOutlined, AttachMoneyOutlined, CancelPresentationOutlined, CategoryOutlined, CreditCardOffOutlined, CreditCardOutlined, DashboardOutlined, GroupsOutlined, ProductionQuantityLimitsOutlined } from '@mui/icons-material'
+import { Grid } from '@mui/material'
+
 import { AdminLayout } from '../../components/layouts'
+import { SummaryTile } from '../../components/admin';
 
 export const DashboardPage = () => {
     return (
@@ -11,19 +12,49 @@ export const DashboardPage = () => {
             icon={<DashboardOutlined />}
         >
             <Grid container spacing={2}>
-                
-                <Grid item xs={12} sm={4} md={3}>
-                    <Card sx={{display: 'flex'}}>
-                    <CardContent sx={{ width: 50, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <CreditCardOffOutlined color='secondary' sx={{ fontSize: 40 }} />
-                    </CardContent>
-                    <CardContent sx={{ display: 'flex', flex: '1 0 auto', flexDirection:'column'}}>
-                        <Typography variant='h3'>50</Typography>
-                        <Typography variant='caption'>Ordenes totales</Typography>
-                    </CardContent>
-                    </Card>
-                </Grid>
 
+                <SummaryTile 
+                    title={1}
+                    subTitle='Ordenes totales'
+                    icon={<CreditCardOutlined color="secondary" sx = {{fontSize: 40}} />}
+                />
+                <SummaryTile 
+                    title={2}
+                    subTitle='Ordenes pagadas'
+                    icon={<AttachMoneyOutlined color="success" sx = {{fontSize: 40}} />}
+                />
+                <SummaryTile 
+                    title={3}
+                    subTitle='Odenes pendientes'
+                    icon={<CreditCardOffOutlined color="error" sx = {{fontSize: 40}} />}
+                />
+                <SummaryTile 
+                    title={4}
+                    subTitle='Clientes'
+                    icon={<GroupsOutlined color="primary" sx = {{fontSize: 40}} />}
+                />
+
+                <SummaryTile 
+                    title={5}
+                    subTitle='Productos'
+                    icon={<CategoryOutlined color="warning" sx = {{fontSize: 40}} />}
+                />
+                <SummaryTile 
+                    title={6}
+                    subTitle='Sin existencias'
+                    icon={<CancelPresentationOutlined color="error" sx = {{fontSize: 40}} />}
+                />
+
+                <SummaryTile 
+                    title={7}
+                    subTitle='Bajo inventario'
+                    icon={<ProductionQuantityLimitsOutlined color="warning" sx = {{fontSize: 40}} />}
+                />
+                <SummaryTile 
+                    title={8}
+                    subTitle='Actualización en:'
+                    icon={<AccessTimeOutlined color="secondary" sx = {{fontSize: 40}} />}
+                />
             </Grid>
         </AdminLayout>
     )
