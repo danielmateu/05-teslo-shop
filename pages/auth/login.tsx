@@ -33,7 +33,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     getProviders().then(providers =>{
-      console.log({providers})
+      // console.log({providers})
       setProviders(providers);
     })
   }, [])
