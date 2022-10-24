@@ -168,6 +168,7 @@ export const SideMenu = () => {
 
                                 <ListItem 
                                 button
+                                onClick={() => navigateTo(`/admin/orders`)}
                                 
                                 >
                                     <ListItemIcon>
