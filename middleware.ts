@@ -1,44 +1,38 @@
-import { getSession } from "next-auth/react";
-import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+// middleware.ts
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-export async function middleware(req: NextRequest | any , ev: NextFetchEvent){
 
-    const cookie = req.headers.get('cookie');
 
-    const session: any = await getSession({ req: {headers: {cookie}} as any });
-    const url = req.nextUrl.clone();
+// This function can be marked `async` if using `await` inside
+export function middleware(req: NextRequest) {
 
-    if(!session){
-        const requestedPage = req.nexturl.pathname;
-        return NextResponse.redirect(`${url.origin}/auth/login?prev=${requestedPage}`)
-    }
+    // if(req.nextUrl.pathname.startsWith('/admin/')){
+    //     /* Getting the pathname and removing the `/admin/` from it. */
+    //     const role = req.nextUrl.pathname.replace('/admin/','');
+       
+    //     console.log(role);
+    //     const noneValidRole = 'client';
+    //     if(noneValidRole.match(role)){
+    //         const url=req.nextUrl.clone()
+    //         url.pathname = '/api/bad-request';
+    //         return NextResponse.rewrite(url)
+    //     }
+    // }
+        const role = req.cookies.get('next-auth.session-token');
+        console.log({role})
 
-    if(!session){
-        return new Response(JSON.stringify({ message: 'Sin autorización'}),{
-            status: 401,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-    }
+        if(req.nextUrl.pathname.includes('/admin')){
+            console.log('validating admin')
+        }
 
-    const validRoles = ['admin', 'super-user', 'SEO'];
-    if(!validRoles.includes(session.user.role)){
-        return NextResponse.redirect(url.origin);
-    }
+        return NextResponse.next()
 
-    if(!validRoles.includes(session.user.role)){
-        return new Response(JSON.stringify({ message: 'Sin autorización'}),{
-            status: 401,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-    }
-
-    return NextResponse.next();
 }
 
+// See "Matching Paths" below to learn more
 export const config = {
-    matcher: ['/checkout/address', '/admin', ]
+    matcher: [
+        '/admin','/admin/:path/',
+    ]
 }
