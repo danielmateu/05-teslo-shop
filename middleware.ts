@@ -1,38 +1,25 @@
 // middleware.ts
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
+import * as jose from 'jose';
 
 
+export async function middleware(req: NextRequest) {
 
-// This function can be marked `async` if using `await` inside
-export function middleware(req: NextRequest) {
+    try {
+        await jose.jwtVerify(req.cookies.get('token') as string,
+            new TextEncoder().encode(process.env.JWT_SECRET_SEED));
 
-    // if(req.nextUrl.pathname.startsWith('/admin/')){
-    //     /* Getting the pathname and removing the `/admin/` from it. */
-    //     const role = req.nextUrl.pathname.replace('/admin/','');
-       
-    //     console.log(role);
-    //     const noneValidRole = 'client';
-    //     if(noneValidRole.match(role)){
-    //         const url=req.nextUrl.clone()
-    //         url.pathname = '/api/bad-request';
-    //         return NextResponse.rewrite(url)
-    //     }
-    // }
-        const role = req.cookies.get('next-auth.session-token');
-        console.log({role})
+        return NextResponse.next();
 
-        if(req.nextUrl.pathname.includes('/admin')){
-            console.log('validating admin')
-        }
 
-        return NextResponse.next()
+    } catch (error) {
+
+        return NextResponse.redirect(`http://localhost:3000/auth/login?p=${config.matcher}`);
+    }
+
 
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-    matcher: [
-        '/admin','/admin/:path/',
-    ]
-}
+    matcher: '/checkout/address',
+};
