@@ -1,17 +1,19 @@
 import NextAuth from 'next-auth';
-
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import Credentials from 'next-auth/providers/credentials';
 
-import { NextAuthOptions } from 'next-auth';
+
+// import { NextAuthOptions } from 'next-auth';
 import {dbUsers} from '../../../database'
 
-export const authOptions: NextAuthOptions = {
+// export const authOptions: NextAuthOptions = {
+export default NextAuth({
 
+    
     // OAuth authentication providers...
     providers: [
-
+        
         Credentials({
             name: 'Custom Login',
             credentials: {
@@ -19,7 +21,7 @@ export const authOptions: NextAuthOptions = {
                 password: { label: 'Contraseña:', type: 'password', placeholder: 'Contraseña' }
             },
             async authorize(credentials) {
-                console.log({ credentials })
+                // console.log({ credentials })
                 //TODO validar contra base de datos
                 // return { name: 'Dani', email: 'dani@gmail.com', role: 'admin' };
                 return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
@@ -97,9 +99,9 @@ export const authOptions: NextAuthOptions = {
 
     }
 
-};
+});
 
-export default NextAuth(authOptions);
+// export default NextAuth(authOptions);
 
 
 

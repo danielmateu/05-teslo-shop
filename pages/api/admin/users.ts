@@ -27,6 +27,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 const getUsers = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     await db.connect();
+   /* Getting all the users from the database and excluding the password field. */
     const users = await User.find().select('-password').lean();
 
     await db.disconnect();
@@ -44,7 +45,8 @@ const updateUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
 
     /* Checking if the role is valid. */
-    const validRoles = ['admin',
+    const validRoles = [
+        'admin',
         'client', //REVISAR!!!
         'super-user',
         'SEO'];
